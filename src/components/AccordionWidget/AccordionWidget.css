@@ -1,0 +1,4 @@
+.accordionTheme div[class*="content"] {
+   color: #f44242;
+   font-weight:bold;
+}
