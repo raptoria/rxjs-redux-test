@@ -1,6 +1,5 @@
 var webpack = require('webpack');
 var path = require('path');
-var combineLoaders = require('webpack-combine-loaders');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports =  {
