@@ -4,7 +4,7 @@ var webpackConfig = require('./webpack.config');
 
 module.exports = function(config) {
   config.set({
-    browsers: ['Chrome'],
+    browsers: ['PhantomJS'],
     singleRun: false,//!argv.watch, // just run once by default
     concurrency: Infinity,
     frameworks: ['mocha', 'chai'],
@@ -14,7 +14,9 @@ module.exports = function(config) {
 
     // include some polyfills for babel and phantomjs
     files: [
-      './test/**/*.js' // specify files to watch for tests
+     'node_modules/babel-polyfill/dist/polyfill.js',
+     './node_modules/phantomjs-polyfill/bind-polyfill.js',
+     './test/**/*.js' // specify files to watch for tests
     ],
     preprocessors: {
       // these files we want to be precompiled with webpack
