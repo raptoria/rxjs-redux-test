@@ -99,7 +99,6 @@
     "testem": "^1.7.1",
     "url-loader": "^0.5.7",
     "webpack": "^1.13.1",
-    "webpack-combine-loaders": "^2.0.3",
     "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
