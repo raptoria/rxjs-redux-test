@@ -31,20 +31,7 @@ module.exports =  {
         loaders: ['react-hot', 'babel'],
         exclude: /node_modules/
       },
-      {
-          test: /\.css$/,
-          loader: combineLoaders([
-            {
-              loader: 'style-loader'
-            }, {
-              loader: 'css-loader',
-              query: {
-                modules: true,
-                localIdentName: '[name]__[local]___[hash:base64:5]'
-              }
-             }
-            ])
-        },
+      { test: /\.css$/, loader: 'style!css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]' },
       { test: /\.(png|jpg|jpeg|gif|svg)$/, loader: "url-loader?limit=100000" },
       { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&minetype=application/font-woff" },
       { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" }
