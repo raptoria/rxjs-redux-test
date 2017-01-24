@@ -5,8 +5,7 @@ import WaveTable from '../../../src/components/WaveTable/WaveTable';
 import WaveForm from '../../../src/components/WaveForm/WaveForm';
 import { Header } from 'semantic-ui-react';
 import {render, shallow, mount} from 'enzyme';
-import {expect} from 'chai';
-import chai from 'chai'
+import chai, {expect} from 'chai';
 import chaiEnzyme from 'chai-enzyme'
 chai.use(chaiEnzyme()) // Note the invocation at the end
 
