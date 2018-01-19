@@ -1,5 +1,5 @@
 Boilerplate / Voting App.
-This code uses Rxjs in Redux Style, with the addition of Socket.IO and Semantic UI
+This code is based off Michal Zalecki's Rxjs in Redux Style, with the addition of Socket.IO, Semantic UI and a little bit of Star Trek
 
 ![Alt text](https://raw.githubusercontent.com/raptoria/rxjs-redux-socket/master/votingApp.png)
 
