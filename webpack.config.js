@@ -1,33 +1,38 @@
 var webpack = require('webpack');
 var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var DIST_DIR = path.join(__dirname, "dist");
 
 module.exports =  {
   entry: { 
     app: [   
-    'webpack/hot/dev-server',
-    'webpack-dev-server/client?http://localhost:3000',
     './src/index' 
     ]
   },
 
-  output: {
-    path: path.join(__dirname, './build'),
-    filename: '[name].js',
-    publicPath: 'http://localhost:3000/build'
+  devServer: {
+    contentBase: './dist',
+    hot: true
+  },
 
+  output: {
+    filename: '[name].js',
+    path: DIST_DIR,
+    publicPath: '/'
   },
 
   resolve: {
-    extensions: ['', '.js', '.jsx', '.css', '.png'],
-    modulesDirectories: ['src', 'node_modules']
+    extensions: ['*', '.js', '.jsx', '.css', '.png'],
+    modules: ['src', 'node_modules']
   },
 
+  mode: 'development',
+
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.(js|jsx)$/,
-        loaders: ['react-hot', 'babel'],
+        loaders: ['react-hot-loader', 'babel-loader'],
         exclude: /node_modules/
       },
       { test: /\.css$/, loader: 'style!css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]' },
@@ -45,8 +50,8 @@ module.exports =  {
   },
 
   plugins: [
+    new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
     new HtmlWebpackPlugin ({
       inject: true,
       filename: 'index.html',

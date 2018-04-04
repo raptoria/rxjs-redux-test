@@ -1,16 +1,20 @@
 var webpack = require('webpack');
-var WebpackDevServer = require('webpack-dev-server');
 var config = require('./webpack.config');
 var bodyParser = require('body-parser');
+var compiler = webpack(config);
 var path = require('path');
 var fs = require("fs");
 var express = require('express');
 var socketio = require('socket.io');
 var http = require('http');
 var voteState = null;
+var webpackDevMiddleware = require('webpack-dev-middleware');
 
 //run express server
-var app = express();
+var DIST_DIR = path.join(__dirname, "dist"),
+    PORT = 3001,
+    app = express();
+
 var server = http.createServer(app);
 var io = socketio(server);
 
@@ -21,20 +25,12 @@ var serverOpts = {
   stats: { colors: true }
 };
 
-//serve webpack assets on webpack dev server
-new WebpackDevServer(webpack(config), serverOpts)
-  .listen(3000, 'localhost', function (err) {
-    if (err) {
-      console.log(err);
-    }
-    console.log("Assets served on 3000");
-  });
 
-
-app.use('/build', express.static(path.join(__dirname + '/build'))); //define build route
-app.use('/', function (req, res) {  //route everything to index, and let react router handle the rest
-    res.sendFile(path.resolve('build/index.html'));
-});
+//using webpack-dev-middleware to serve up assets in memory
+app.use(webpackDevMiddleware(compiler, {
+  publicPath: config.output.publicPath,
+  stats: {colors: true}
+}));
 
 //socket stuff
 io.on('connection', function(socket){
@@ -52,7 +48,7 @@ io.on('connection', function(socket){
   });
 });
 
-server.listen(process.env.PORT || 3001, process.env.IP || "0.0.0.0", function(){
+server.listen(PORT || 3001, process.env.IP || "0.0.0.0", function(){
   var addr = server.address();
   console.log("Server listening at", addr.address + ":" + addr.port);
 });
